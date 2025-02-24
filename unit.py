@@ -16,7 +16,14 @@ class Unit(ABC):
       self._hp = hp
       self._total_hp = total_hp
       self._unit_type = None #se define en la subclase
-  
+
+    @property
+    def name(self):
+        return self._name
+    @property
+    def strength(self):
+        return   self._defense
+    
     def __str__(self):
         return f'nombre: {self._name}, unit:{self._unit_type}, ATT: {self._strength}, DEF: {self._defense}, HP: {self._hp/self._total_hp}'
       # no sabemos como funciona
