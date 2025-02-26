@@ -39,10 +39,10 @@ class Unit(ABC):
 
     """con las etiquetas @property y @setter permitimos el acceso a los atributos de cada clase"""
     @property
-    def name(self):
+    def name(self): #definimos como "leer" el nombre
         return self._name
     @name.setter
-    def name(self, name):
+    def name(self, name): # definimos como insertar nombre con precondiciones = str y len>0
         if isinstance(name, str) and len(name) > 0:
             self._name = name
         else:
