@@ -6,6 +6,7 @@ Created on Tue Feb 25 21:13:07 2025
 """
 
 from abc import ABC
+from unit import Archer, Cavalry, Infantry, Worker
 
 class civilization(ABC):
     """ definimos las características básicas de la clase abstracta Unit. """
@@ -38,16 +39,27 @@ class civilization(ABC):
     @property
     def units(self):
         return self._units
+     @units.setter
+    def units(self, value):
+        if isinstance(value, list):
+            self._units = value
+        else:
+            return 'Debe ser una lista.'
 
   
     def train_unit(self, unit_type:str)-> 'Unit':
-            
+            if self._unit_type == "Worker" and self._resources >= 30:
+                self._units = self._units.append(self._unit_type)
+            elif self._unit_type == ("Cavalry" or "Infantry" or "Archer") and self._resources >= 60:
+                self._units = self._units.append(self._unit_type)
+            return self._units
+        
     
     def collect_resources(self)-> None:
         """ Permite que la civilización obtenga recursos cuando se llama a la función collect_resources """
         for unidad in sefl._units:
-            if unidad._name == "Worker":
-                self._resources += collect(unidad)
+            if unidad._unit_type == "Worker":
+                self._resources += unidad.collect()
         return self._resources
     
     def all_debilitated(self)-> bool:
@@ -58,4 +70,5 @@ class civilization(ABC):
                 live += 1
         if live == len(self._units):
             return True
-        
+        else:
+            return False
