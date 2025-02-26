@@ -189,7 +189,7 @@ class Infantry(Unit):
         super().__init__(name, strength, defense, hp, total_hp, unit_type = 'Infantry') 
         
     def attack(self, opponent:'Unit') -> int:
-        """ definimos el número de daño a cada oponente siendo 1 si no hay flechas """
+        """ definimos el número de daño a cada oponente"""
         if opponent._hp > 0:
             factor = 1
             if opponent._unit_type == 'Archer':
@@ -231,6 +231,17 @@ class Worker(Unit):
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int):
         """ define las características de la clase trabajador """
         super().__init__(name, strength, defense, hp, total_hp, unit_type = 'Worker') 
+    def attack(self, opponent:'Unit') -> int:
+        if opponent._hp > 0:
+            n = 1
+            if opponent._hp - n <= 0:
+                n = opponent._hp
+            opponent._hp = max(0, opponent._hp - n)
+            return n
+        else:
+            return 'Oponente no disponible'
+        n = 1
+        return n
     def collect(self)-> int:
         return 10
     def effectiveness(self, opponent:'Unit') -> int:
