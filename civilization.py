@@ -13,21 +13,7 @@ class civilization(ABC):
       self._name = name
       self._resources = resources
       self._units = units #se define en la subclase
-      
-    def train_unit(self, unit_type:str)-> 'Unit':
-        """ se completa en el archivo de batalla"""
-        pass 
-    
-    def collect(self)-> None:
-        """ daño básico de 1 unidad, se modifica dependiendo de la clase """
-        return 1
-    
-    def all_debilitated(self)-> bool:
-        """ indica la unidad está fuera de combate (True) o todavía en batalla (False) """
-    
-    """
-    Estas tres funciones son comunes a todos los personajes
-    """
+        
     
     @property
     def name(self):
@@ -52,3 +38,24 @@ class civilization(ABC):
     @property
     def units(self):
         return self._units
+
+  
+    def train_unit(self, unit_type:str)-> 'Unit':
+            
+    
+    def collect_resources(self)-> None:
+        """ Permite que la civilización obtenga recursos cuando se llama a la función collect_resources """
+        for unidad in sefl._units:
+            if unidad._name == "Worker":
+                self._resources += collect(unidad)
+        return self._resources
+    
+    def all_debilitated(self)-> bool:
+        """ indica la civilización está fuera de combate (True) o todavía en batalla (False) """
+        live = 0
+        for units in self._units:
+            if units._hp == 0:
+                live += 1
+        if live == len(self._units):
+            return True
+        
