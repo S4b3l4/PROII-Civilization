@@ -7,7 +7,7 @@ Created on Tue Feb 25 21:13:07 2025
 
 from abc import ABC
 
-class Unit(ABC):
+class civilization(ABC):
     """ definimos las características básicas de la clase abstracta Unit. """
     def __init__(self, name:str, resources:int, units:list):
       self._name = name
