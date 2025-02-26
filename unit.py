@@ -19,7 +19,6 @@ class Unit(ABC):
   
     def __str__(self):
         return f'nombre: {self._name}, unit:{self._unit_type}, ATT: {self._strength}, DEF: {self._defense}, HP: {self._hp/self._total_hp}'
-      # no sabemos como funciona
       
     @abstractmethod
     def effectiveness(self, opponent:'Unit')-> int:
