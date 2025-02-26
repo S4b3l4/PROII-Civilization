@@ -8,7 +8,7 @@ from abc import ABC, abstractmethod
 import math
 
 class Unit(ABC):
-    """ definimos las características básicas de la clase abstracta Unit. """
+    """ definimos las características básicas de la clase abstracta Unit que serán comunes a todas las unidades. """
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int, unit_type:str):
       self._name = name
       self._strength = strength
@@ -38,6 +38,7 @@ class Unit(ABC):
     Estas tres funciones son comunes a todos los personajes
     """
 
+    """con las etiquetas @property y @setter permitimos el acceso a los atributos de cada clase"""
     @property
     def name(self):
         return self._name
@@ -92,7 +93,7 @@ class Archer(Unit):
         super().__init__(name, strength, defense, hp, total_hp, unit_type = 'Archer') #super llama a la superclase.
         
     def attack(self, opponent:'Unit') -> int:
-         """definimos el número de daño a cada oponente siendo 1 si no hay flechas """
+         """definimos el número de daño a cada oponente siendo 1 si no hay flechas"""
          if opponent._hp > 0:
             factor = 1
             if opponent._unit_type == 'Cavalry':
@@ -114,6 +115,7 @@ class Archer(Unit):
             opponent._hp = max(0, opponent._hp - n)
             return n
          else:
+             """si el oponente no tiene vida no podrá ser atacado"""
             return 'Oponente no disponible'
     
     def effectiveness(self, opponent:'Unit') -> int:
@@ -154,6 +156,7 @@ class Cavalry(Unit):
          
             n = math.floor((max(1, (self._charge + factor*self._strength) - opponent._defense)))
             if opponent._hp - n <= 0:
+                """comprobamos que la vida restante del oponente no sea inferior a 0"""
                 n = opponent._hp
             opponent._hp = max(0, opponent._hp - n)
             return n
@@ -232,6 +235,7 @@ class Worker(Unit):
         """ define las características de la clase trabajador """
         super().__init__(name, strength, defense, hp, total_hp, unit_type = 'Worker') 
     def attack(self, opponent:'Unit') -> int:
+        """en caso de que el worker tenga que atacar el daño siempre será 1"""
         if opponent._hp > 0:
             n = 1
             if opponent._hp - n <= 0:
