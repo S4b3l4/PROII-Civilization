@@ -9,13 +9,12 @@ import math
 
 class Unit(ABC):
     """ definimos las características básicas de la clase abstracta Unit que serán comunes a todas las unidades. """
-    def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int, unit_type:str):
+    def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int):
       self._name = name
       self._strength = strength
       self._defense = defense
       self._hp = hp
       self._total_hp = total_hp
-      self._unit_type = unit_type #se define en la subclase
   
     def __str__(self):
         return f'nombre: {self._name}, unit:{self._unit_type}, ATT: {self._strength}, DEF: {self._defense}, HP: {self._hp/self._total_hp}'
@@ -88,8 +87,9 @@ class Archer(Unit):
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int, arrows:int):
         """ define las características de la clase arquero """
         self._arrows = arrows
+        self._unit_type = 'Archer'
         'definimos el nº de flechas a la hora de la batalla para más flexibilidad del juego'
-        super().__init__(name, strength, defense, hp, total_hp, unit_type = 'Archer') #super llama a la superclase.
+        super().__init__(name, strength, defense, hp, total_hp) #super llama a la superclase.
         
     def attack(self, opponent:'Unit') -> int:
          """definimos el número de daño a cada oponente siendo 1 si no hay flechas"""
@@ -142,7 +142,8 @@ class Cavalry(Unit):
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int, charge:int):
         """ define las características de la clase caballería """
         self._charge = charge
-        super().__init__(name, strength, defense, hp, total_hp, unit_type = 'Cavalry') 
+        self._unit_type = 'Cavalry'
+        super().__init__(name, strength, defense, hp, total_hp) 
         
     def attack(self, opponent:'Unit') -> int:
         """ definimos el número de daño a cada oponente y lo restamos a la vida del oponente """
@@ -188,7 +189,8 @@ class Infantry(Unit):
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int, fury:int):
         """ define las características de la clase infantería """
         self._fury = fury
-        super().__init__(name, strength, defense, hp, total_hp, unit_type = 'Infantry') 
+        self._unit_type = 'Infantry'
+        super().__init__(name, strength, defense, hp, total_hp) 
         
     def attack(self, opponent:'Unit') -> int:
         """ definimos el número de daño a cada oponente"""
@@ -232,7 +234,8 @@ class Worker(Unit):
     
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int):
         """ define las características de la clase trabajador """
-        super().__init__(name, strength, defense, hp, total_hp, unit_type = 'Worker') 
+        self._unit_type = 'Worker'
+        super().__init__(name, strength, defense, hp, total_hp) 
     def attack(self, opponent:'Unit') -> int:
         """en caso de que el worker tenga que atacar el daño siempre será 1"""
         if opponent._hp > 0:
