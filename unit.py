@@ -8,7 +8,7 @@ from abc import ABC, abstractmethod
 import math
 
 class Unit(ABC):
-    """ definimos las características básicas de la clase abstracta Unit que serán comunes a todas las unidades. """
+    """ definimos las características básicas de la clase abstracta Unit que serán comunes a todas las subunidades. """
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int):
       self._name = name
       self._strength = strength
@@ -29,7 +29,7 @@ class Unit(ABC):
         return 1
     
     def is_debilitated(self)-> bool:
-        """ indica la unidad está fuera de combate (True) o todavía en batalla (False) """
+        """ indica si la unidad está fuera de combate (True) o todavía en batalla (False) """
         return self._hp == 0
     
     """
@@ -92,7 +92,7 @@ class Archer(Unit):
         super().__init__(name, strength, defense, hp, total_hp) #super llama a la superclase.
         
     def attack(self, opponent:'Unit') -> int:
-         """definimos el número de daño a cada oponente siendo 1 si no hay flechas"""
+         """definimos el número de daño a cada oponente siendo el mínimo 1 si no hay flechas"""
          if opponent._hp > 0:
             factor = 1
             if opponent._unit_type == 'Cavalry':
@@ -146,7 +146,7 @@ class Cavalry(Unit):
         super().__init__(name, strength, defense, hp, total_hp) 
         
     def attack(self, opponent:'Unit') -> int:
-        """ definimos el número de daño a cada oponente y lo restamos a la vida del oponente """
+        """ calculamos y devolvemos el número de daño a cada oponente"""
         if opponent._hp > 0:
             factor = 1
             if opponent._unit_type == 'Infantry':
@@ -248,8 +248,12 @@ class Worker(Unit):
             return 'Oponente no disponible'
         n = 1
         return n
+        
     def collect(self)-> int:
+        """permite a los Worker recolectar 10 de recursos"""
         return 10
+        
     def effectiveness(self, opponent:'Unit') -> int:
+        """la clase Worker siempre es devil a las otras clases por eso devolvemos -1"""
         return -1
     
