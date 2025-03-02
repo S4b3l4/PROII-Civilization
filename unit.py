@@ -24,15 +24,21 @@ class Unit(ABC):
     """
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int):
         """Asigna atributos al objeto.
-        Parameters
+        Parametros
         ----------
-        attr1 : tipo
+        name : str
+        Nombre de la unidad 
+        strength : int
         Descripción.
-        attr2 : tipo
-        Descripción.
-        Returns
+        defense : int
+        Descripción. 
+        hp : int
+        Descripción. 
+        total_hp : int
+        Descripción. 
+        Returns ???????????????????????????
         -------
-        None.
+        None. ???????????????????
         """
       self._name = name
       self._strength = strength
