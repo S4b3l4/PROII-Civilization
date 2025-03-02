@@ -27,15 +27,16 @@ class Unit(ABC):
         Parametros
         ----------
         name : str
-        Nombre de la unidad 
+        Nombre de la unidad.
         strength : int
-        Descripción.
+        Unidades de fuerza basica de la uniad, las unidades de ataque se calculan con la strength y la defense.
         defense : int
-        Descripción. 
+        Unidades de defensa, se resta al total del daño antes de devolver el número de unidades de daño causadas.
         hp : int
-        Descripción. 
+        Puntos de salud varia a lo largo del juego pero nunca aumenta, siempre inferior o igual a total_hp.
         total_hp : int
-        Descripción. 
+        Puntos totales de vida, no varia a lo largo de la partida.
+        
         Returns ???????????????????????????
         -------
         None. ???????????????????
@@ -47,15 +48,15 @@ class Unit(ABC):
       self._total_hp = total_hp
   
     def __str__(self):
-        """Una sola línea de resumen.
-        Parameters
+        """Definimos la cadena que se muestra por pantalla cuando se llama a print con el objeto como argumento.
+        Parametros
         ----------
         param1 : tipo
-        Descripción.
+        Descripción.    ????????????????????????????????????????
         Returns
         --------
         str
-        Resultado de...
+        Resultado {name} ({unit_type}) Stats: ATT: {strength}, DEF: {defense}, HP: {hp/total_hp}
         """
         return f'nombre: {self._name}, unit:{self._unit_type}, ATT: {self._strength}, DEF: {self._defense}, HP: {self._hp/self._total_hp}'
       
