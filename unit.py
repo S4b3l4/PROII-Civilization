@@ -9,7 +9,31 @@ import math
 
 class Unit(ABC):
     """ definimos las características básicas de la clase abstracta Unit que serán comunes a todas las subunidades. """
+    """Una sola línea de resumen.
+    Descripción en varias líneas
+    Attributes
+    ----------
+    attr1 : tipo
+    Descripción.
+    attr2 : tipo
+    Descripción.
+    Methods
+    -------
+    metodo1(param1):
+    Una línea de resumen.
+    """
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int):
+        """Asigna atributos al objeto.
+        Parameters
+        ----------
+        attr1 : tipo
+        Descripción.
+        attr2 : tipo
+        Descripción.
+        Returns
+        -------
+        None.
+        """
       self._name = name
       self._strength = strength
       self._defense = defense
@@ -17,11 +41,21 @@ class Unit(ABC):
       self._total_hp = total_hp
   
     def __str__(self):
+        """Una sola línea de resumen.
+        Parameters
+        ----------
+        param1 : tipo
+        Descripción.
+        Returns
+        --------
+        str
+        Resultado de...
+        """
         return f'nombre: {self._name}, unit:{self._unit_type}, ATT: {self._strength}, DEF: {self._defense}, HP: {self._hp/self._total_hp}'
       
     @abstractmethod
     def effectiveness(self, opponent:'Unit')-> int:
-        """ se completa en el archivo de batalla"""
+        """Define la relación entre las subclases en base a su interacción en batalla"""
         pass 
     
     def attack(self, opponent:'Unit')-> int:
@@ -33,10 +67,9 @@ class Unit(ABC):
         return self._hp == 0
     
     """
-    Estas tres funciones son comunes a todos los personajes
+    Estas tres funciones son comunes a todos los personajes.
+    Con las etiquetas @property y @setter permitimos el acceso a los atributos de cada clase.
     """
-
-    """con las etiquetas @property y @setter permitimos el acceso a los atributos de cada clase"""
     @property
     def name(self): #definimos como "leer" el nombre
         return self._name
