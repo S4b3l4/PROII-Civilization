@@ -8,23 +8,32 @@ from abc import ABC, abstractmethod
 import math
 
 class Unit(ABC):
-    """ definimos las características básicas de la clase abstracta Unit que serán comunes a todas las subunidades. """
-    """Una sola línea de resumen.
+    """ definimos las características básicas de la clase abstracta Unit que serán comunes a todas las subunidades.
     Descripción en varias líneas
     Attributes
     ----------
-    attr1 : tipo
-    Descripción.
-    attr2 : tipo
-    Descripción.
-    Methods
+    name : str
+    Nombre de la unidad.
+    strength : int
+    Unidades de fuerza basica de la uniad, las unidades de ataque se calculan con la strength y la defense.
+    defense : int
+    Unidades de defensa, se resta al total del daño antes de devolver el número de unidades de daño causadas.
+    hp : int
+    Puntos de salud varia a lo largo del juego pero nunca aumenta, siempre inferior o igual a total_hp.
+    total_hp : int
+    Puntos totales de vida, no varia a lo largo de la partida.
     -------
-    metodo1(param1):
-    Una línea de resumen.
+    effectiveness(self, opponent:'Unit') :
+    Define la relación entre las subclases en base a su interacción en batalla -1 devil, 0 neutro y 1 efectivo.
+    attack(self, opponent:'Unit') :
+    Daño básico de 1 unidad, se modifica dependiendo de la clase.
+    is_debilitated(self) :
+    Indica si la unidad está fuera de combate, con unidades de hp igual a 0 (True) o todavía en batalla (False)
     """
+    
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int):
         """Asigna atributos al objeto.
-        Parametros
+        Parameters
         ----------
         name : str
         Nombre de la unidad.
@@ -36,10 +45,9 @@ class Unit(ABC):
         Puntos de salud varia a lo largo del juego pero nunca aumenta, siempre inferior o igual a total_hp.
         total_hp : int
         Puntos totales de vida, no varia a lo largo de la partida.
-        
-        Returns ???????????????????????????
+        Returns
         -------
-        None. ???????????????????
+        None.
         """
       self._name = name
       self._strength = strength
@@ -49,10 +57,10 @@ class Unit(ABC):
   
     def __str__(self):
         """Definimos la cadena que se muestra por pantalla cuando se llama a print con el objeto como argumento.
-        Parametros
+        Parameters
         ----------
-        param1 : tipo
-        Descripción.    ????????????????????????????????????????
+        self : Unit              ¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿ ???????????????????????????????????????????????
+        Objeto sobre el que queremos saber información.  
         Returns
         --------
         str
@@ -62,21 +70,53 @@ class Unit(ABC):
       
     @abstractmethod
     def effectiveness(self, opponent:'Unit')-> int:
-        """Define la relación entre las subclases en base a su interacción en batalla"""
+        """Define la relación entre las subclases en base a su interacción en batalla.
+        Parameters
+        ----------
+        self : Unit
+        Objeto que queremos saber si tiene algun efecto sobre el oponente.
+        opponent : Unit
+        Objeto oponente del cual necesitamos saber su unit_tipe.
+        Returns
+        -------
+        int
+        Devuelve -1 si es débil ante el oponente ,0 si es neutro contra el oponente o 1 si es efectivo ante el oponente.
+        """
         pass 
     
     def attack(self, opponent:'Unit')-> int:
-        """ daño básico de 1 unidad, se modifica dependiendo de la clase """
+        """Daño básico de 1 unidad, se modifica dependiendo de la clase.
+        Parameters
+        ----------
+        self : Unit
+        Objeto que queremos que ataque.
+        opponent : Unit
+        Objeto oponente del cual necesitamos saber su defensa.
+        Returns
+        -------
+        int
+        Devuelve las unidades de ataque.
+        """
         return 1
     
     def is_debilitated(self)-> bool:
-        """ indica si la unidad está fuera de combate (True) o todavía en batalla (False) """
+        """Indica si la unidad está fuera de combate, con unidades de hp igual a 0 (True) o todavía en batalla (False).
+        Parameters
+        ----------
+        self : Unit
+        Objeto que queremos saber si está debilitado.
+        Returns
+        -------
+        bool
+        True si está debilitado, False si sigue en pie para la batalla.
+        """
         return self._hp == 0
-    
+        
     """
     Estas tres funciones son comunes a todos los personajes.
     Con las etiquetas @property y @setter permitimos el acceso a los atributos de cada clase.
     """
+
     @property
     def name(self): #definimos como "leer" el nombre
         return self._name
@@ -122,8 +162,9 @@ class Unit(ABC):
     def unit_type(self):
         return self._unit_type
 
+
+
 class Archer(Unit):
-    
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int, arrows:int):
         """ define las características de la clase arquero """
         self._arrows = arrows
@@ -178,7 +219,6 @@ class Archer(Unit):
             return 'El número de flechas tiene que ser positivo y entero.'
  
 class Cavalry(Unit):
-    
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int, charge:int):
         """ define las características de la clase caballería """
         self._charge = charge
@@ -225,7 +265,6 @@ class Cavalry(Unit):
  
         
 class Infantry(Unit):
-    
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int, fury:int):
         """ define las características de la clase infantería """
         self._fury = fury
@@ -271,7 +310,6 @@ class Infantry(Unit):
  
             
 class Worker(Unit):
-    
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int):
         """ define las características de la clase trabajador """
         self._unit_type = 'Worker'
@@ -296,4 +334,3 @@ class Worker(Unit):
     def effectiveness(self, opponent:'Unit') -> int:
         """la clase Worker siempre es devil a las otras clases por eso devolvemos -1"""
         return -1
-    
