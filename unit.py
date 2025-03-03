@@ -110,7 +110,7 @@ class Unit(ABC):
         bool
         True si está debilitado, False si sigue en pie para la batalla.
         """
-        return self._hp == 0
+        return self._hp <= 0
         
     """
     Estas tres funciones son comunes a todos los personajes.
