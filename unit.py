@@ -117,51 +117,65 @@ class Unit(ABC):
     Con las etiquetas @property y @setter permitimos el acceso a los atributos de cada clase.
     """
 
-    @property
+   @property
     def name(self): #definimos como "leer" el nombre
         return self._name
     @name.setter
     def name(self, name): # definimos como insertar nombre con precondiciones = str y len>0
-        if isinstance(name, str) and len(name) > 0:
-            self._name = name
-        else:
-            return 'El nombre no puede ser una cadena de texto vacía.'
+           if isinstance(name, str) and len(name) > 0:
+               self._name = name
+           else:
+               raise ValueError('El nombre no puede ser una cadena de texto vacía.')
 
     @property
     def strength(self):
         return self._strength
     @strength.setter
     def strength(self, value):
-        if isinstance(value, int) and value >= 0:
-            self._strength = value
+        if isinstance(value, int):
+            self._strength = max(0, value)
         else:
-            return 'Debe ser un número entero y positivo.'
-        
+            raise ValueError('Debe ser un número entero y positivo.')
+       
     @property
     def defense(self):
         return self._defense
     @defense.setter
     def defense(self, value):
-        self._defense = max(0, value)
+        if isinstance(value, int):
+            self._defense = max(0, value)
+        else:
+            raise ValueError("Defense debe ser un número entero.")
         
     @property
     def hp(self):
         return self._hp
     @hp.setter
     def hp(self, value):
-        self._hp = max(0, value)
+        if isinstance(value, int):
+            self._hp = max(0, value)
+        else:
+            raise ValueError("HP debe ser un número entero.")
         
     @property
     def total_hp(self):
         return self._total_hp
     @total_hp.setter
     def total_hp(self, value):
-        self._total_hp = max(0, value)
+        if isinstance(value, int):
+            self._total_hp = max(0, value)
+        else:
+            raise ValueError("Total_hp debe ser un número entero.")
         
     @property
     def unit_type(self):
         return self._unit_type
-
+    @unit_type.setter
+    def unit_type(self, value):
+        if isinstance(value, str) and len(value) > 0:
+            self._unit_type = value
+        else:
+            raise ValueError("El tipo de unidad debe ser una cadena de texto no vacía.")
 
 
 class Archer(Unit):
