@@ -4,6 +4,9 @@ Created on Wed Feb 12 13:18:49 2025
 
 @author: usuario
 """
+"""
+Autoría: Sabela Fiaño García (sabela.fgarcia@udc.es) y Sara Gende Longueira (sara.gende@udc.es)
+"""
 from abc import ABC, abstractmethod
 import math
 
