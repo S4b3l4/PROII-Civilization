@@ -15,7 +15,7 @@ class civilization():
     def __init__(self, name:str, resources:int, units:list):
       self._name = name
       self._resources = resources
-      self._units = units #se define en la subclaseç
+      self._units = units #se define en la subclase
       self._units_count = {"Archer" : 0, "Worker" : 0, "Cavalry" : 0, "Infantry":0 }
     
     @property
