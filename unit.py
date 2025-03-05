@@ -11,7 +11,7 @@ from abc import ABC, abstractmethod
 import math
 
 class Unit(ABC):
-    """ definimos las características básicas de la clase abstracta Unit que serán comunes a todas las subunidades.
+    """Definimos las características básicas de la clase abstracta Unit que serán comunes a todas las subunidades.
     Descripción en varias líneas
     Attributes
     ----------
