@@ -233,7 +233,7 @@ class Archer(Unit):
         if isinstance(value, int) and value >= 0:
             self._arrows = value
         else:
-            raise ValueError(El número de flechas debe ser un número entero.")
+            raise ValueError('El número de flechas debe ser un número entero.')
  
 class Cavalry(Unit):
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int, charge:int):
