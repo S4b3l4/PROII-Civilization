@@ -17,8 +17,8 @@ def recoleccion(civilization1, civilization2):
             for individuo in civilizacion.units:
                 if individuo._hp > 0:
                     if individuo._unit_type == clase : 
-                        print(individuo._name, " (", individuo._hp, "/", individuo._total_hp,")", end= ", ")
-                
+                        print(f"{individuo.name} ({individuo.hp}/{individuo.total_hp})", end=", ")
+            print()
  # def production(civilization1, civilization2):
     
 
