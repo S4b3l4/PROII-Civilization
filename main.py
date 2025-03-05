@@ -9,10 +9,10 @@ from unit import *
 
 def recoleccion(civilization1, civilization2):
     lista = [civilization1, civilization2]
+    print( "\n","PHASE 1: REPORT", "\n", "----------------------------------------")
     for civilizacion in lista:
         civilizacion.collect_resources()
-        print( "\n","PHASE 1: REPORT", "\n", "----------------------------------------")
-        print(f'{civilizacion.name} Resources: {civilizacion.resources}')
+        print("\n", f'{civilizacion.name} Resources: {civilizacion.resources}')
         for clase in ["Worker", "Archer", "Cavalry", "Infantry"]:
             print(clase, end= " : ")
             for individuo in civilizacion.units:
@@ -25,9 +25,8 @@ def recoleccion(civilization1, civilization2):
 def produccion(civilization1, civilization2, turno):
     lista = [civilization1, civilization2]
     print( "\n","PHASE 2: REPORT", "\n", "----------------------------------------")
-    
     for civilizacion in lista:
-        if civilizacion.resources >= 60:
+        if civilizacion.resources >= 30:
             print( "\n",f"{civilizacion.name} creates ", end=" ")
             if turno % 4 == 0:
                 print (civilizacion.train_unit("Archer"))
@@ -35,7 +34,6 @@ def produccion(civilization1, civilization2, turno):
                 print(civilizacion.train_unit("Cavalry"))
             elif turno % 4 == 2:
                 print(civilizacion.train_unit("Infantry"))
-        elif civilizacion.resources >= 30: 
             if turno % 4 == 3:
                 print(civilizacion.train_unit("Worker"))
             
@@ -126,8 +124,7 @@ if __name__ == "__main__":
     print (f"[TODO: Create {infantry} infantry for {civ2_name}]")
     
     #empieza la batalla turno 1 recursos
-    turno = 1
-    for turno in range (turns):
-        print("\n", "TURNO_",turno , "\n", "--------------------------------------------------" )
+    for turno in range (1,turns):
+        print("\n", "****************************************************", "\n", "TURNO_",turno , "\n", "****************************************************" )
         recoleccion(civ1, civ2)
         produccion(civ1, civ2, turno)
