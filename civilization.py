@@ -44,7 +44,7 @@ class civilization():
         self._name = name
         self._resources = resources
         self._units = [] #se define en la subclase
-        self._units_count = {"Archer" : 0, "Worker" : 0, "Cavalry" : 0, "Infantry":0 }
+        self._unit_count = {"Archer" : 0, "Worker" : 0, "Cavalry" : 0, "Infantry":0 }
     
     @property
     def name(self):
