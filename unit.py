@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Autoría: Sabela Fiaño García (sabela.fgarcia@udc.es) y Sara Gende Longueira (sara.gende@udc.es)
 """
@@ -68,7 +67,7 @@ class Unit(ABC):
         Resultado {name} ({unit_type}) Stats: ATT: {strength}, DEF: {defense}, HP: {hp/total_hp}
         """
         
-        return f'nombre: {self._name}, unit:{self._unit_type}, ATT: {self._strength}, DEF: {self._defense}, HP: {self._hp/self._total_hp}'
+        return f'nombre: {self._name}, unit:{self._unit_type}, ATT: {self._strength}, DEF: {self._defense}, HP: {self._hp}/{self._total_hp}'
       
     @abstractmethod
     def effectiveness(self, opponent:'Unit')-> int:
