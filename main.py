@@ -41,18 +41,64 @@ def produccion(civilization1, civilization2, turno):
             
         else:
             print(f"{civilizacion.name} cannot create any unit right now.")    
+            
+def selec_objetivo(atacante, civ_oponente):
+    n_und_vivas = 0     
+    n_work_vivos = 0
     
+    for oponente in civ_oponente.units:
+        if oponente.hp > 0:
+            n_und_vivas += 1
+            if oponente.unit_type != "Worker" :
+                efecto = atacante.effectiveness(oponente)
+                if efecto == 1 :
+                    return(oponente)
+                elif efecto == 0 :
+                    return(oponente)
+                elif efecto == -1 :
+                   return(oponente)
+            else:
+                n_work_vivos += 1
+    if n_und_vivas == n_work_vivos:            
+        for oponente in civ_oponente.units:      
+            if oponente.hp > 0 and oponente.unit_type == "Worker":
+                return (oponente)
+    return None
+                
+               
 
-def batalla(civilization1, civilization2):
+def batalla(civilizacion1, civilizacion2):
+    lista = [civilizacion1, civilizacion2]
     print( "\n","PHASE 3: REPORT", "\n", "----------------------------------------")
-    if civ_atacante.all_debilitated == True:
-        return(f"{civ_atacante} está fuera de combate, el ganador es {civ_oponente} ")
-    elif civ_oponente.all_debilitated == True:
-        return(f"{civ_oponente} está fuera de combate, el ganador es {civ_atacante} ")
+    if civilizacion1.all_debilitated == True:
+        return(f"{civilizacion1} está fuera de combate, el ganador es {civilizacion2} ")
+    elif civilizacion2.all_debilitated == True:
+        return(f"{civilizacion2} está fuera de combate, el ganador es {civilizacion1} ")
     
-       
+    n_medio_ind = min(len(civilizacion1.units), len(civilizacion2.units))
         
+    for pos_atack in range(n_medio_ind):
+        if  civilizacion1.units[pos_atack].unit_type != "Worker":
+            individuo1 = civilizacion1.units[pos_atack]
+            oponente_civ2 = selec_objetivo(individuo1, civilizacion2)
+            if oponente_civ2.is_debilitated == False:
+                daño = individuo1.attack(oponente_civ2)
+                oponente_civ2.hp -= daño
+            else:
+                print(f"No se pudo seleccionar objetivo para el atacante {individuo1}. No se realizará ataque.")
+            
+        if  civilizacion2.units[pos_atack].unit_type != "Worker":            
+            individuo2 = civilizacion2.units[pos_atack]
+            oponente_civ1 = selec_objetivo(individuo2, civilizacion1)
+            if oponente_civ1.is_debilitated == False:
+                daño = individuo2.attack(oponente_civ1)
+                oponente_civ1.hp -= daño
+            else:
+                print(f"No se pudo seleccionar objetivo para el atacante {individuo2}. No se realizará ataque.")
 
+    #falta atacar con worker y atacar tropas auxiliares 
+    
+    
 
 if __name__ == "__main__":
 
@@ -134,3 +180,4 @@ if __name__ == "__main__":
         print("\n", "****************************************************", "\n", "TURNO_",turno , "\n", "****************************************************" )
         recoleccion(civ1, civ2)
         produccion(civ1, civ2, turno)
+        batalla(civ1, civ2)
