@@ -233,7 +233,7 @@ class Archer(Unit):
         if isinstance(value, int) and value >= 0:
             self._arrows = value
         else:
-            return 'El número de flechas tiene que ser positivo y entero.'
+            raise ValueError(El número de flechas debe ser un número entero.")
  
 class Cavalry(Unit):
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int, charge:int):
@@ -278,7 +278,7 @@ class Cavalry(Unit):
         if isinstance(value, int) and value >= 0:
             self._charge = value
         else:
-            return 'La carga tiene que ser positiva y entera.'
+            raise ValueError('La carga tiene que ser positiva y entera.')
  
         
 class Infantry(Unit):
@@ -323,7 +323,7 @@ class Infantry(Unit):
         if isinstance(value, int) and value >= 0:
             self._fury = value
         else:
-            return 'La furia tiene que ser positiva y entera.'
+            raise ValueError('La furia tiene que ser positiva y entera.')
  
             
 class Worker(Unit):
