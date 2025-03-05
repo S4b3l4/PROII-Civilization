@@ -120,7 +120,7 @@ class civilization():
                 self._units.append(new_unit)
                
             elif new_unit_type == "Infantry":
-                self._unit_count ["Worker"]+= 1
+                self._unit_count ["Infantry"]+= 1
                 name = f"Infantry_{self._unit_count["Infantry"]}"
                 new_unit = Infantry(name, 3, 2, 25, 25, 3) 
                 self._resources -= 60
