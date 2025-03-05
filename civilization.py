@@ -54,7 +54,7 @@ class civilization():
         if isinstance(name, str) and len(name) > 0:
             self._name = name
         else:
-            return 'El nombre no puede ser una cadena de texto vacía.'
+            raise ValueError('El nombre no puede ser una cadena de texto vacía.')
 
     @property
     def resources(self):
@@ -64,7 +64,7 @@ class civilization():
         if isinstance(value, int) and value >= 0:
             self._resources = value
         else:
-            return 'Debe ser un número entero y positivo.'
+            raise ValueError('Debe ser un número entero y positivo.')
         
     @property
     def units(self):
@@ -74,7 +74,7 @@ class civilization():
         if isinstance(value, list):
             self._units = value
         else:
-            return 'Debe ser una lista.'
+            raise ValueError('Debe ser una lista.')
         
     @property
     def units_count(self):
@@ -84,7 +84,7 @@ class civilization():
         if isinstance(value, dict):
             self._units = value
         else:
-            return 'Debe ser un diccionario.'
+            raise ValueError('Debe ser un diccionario.')
 
     def train_unit(self, new_unit_type:str)-> 'Unit':
         """Una sola línea de resumen.
