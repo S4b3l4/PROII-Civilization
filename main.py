@@ -4,8 +4,8 @@ Autoría: Sabela Fiaño García (sabela.fgarcia@udc.es) y Sara Gende Longueira (
 
 import random
 import pandas
-from civilization import civilization 
-from unit import Archer, Cavalry, Infantry, Worker
+from civilization import *
+from unit import *
 import sys
 
 if __name__ == "__main__":
