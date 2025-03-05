@@ -7,13 +7,12 @@ import pandas
 from civilization import civilization
 from unit import *
 
-
 def recoleccion(civilization1, civilization2):
     lista = [civilization1, civilization2]
     for civilizacion in lista:
         civilizacion.collect_resources()
         print( "\n","PHASE 1: REPORT", "\n", "----------------------------------------")
-        print(f'{civilization.name} Resources: {civilization.resources}')
+        print(f'{civilizacion.name} Resources: {civilizacion.resources}')
         for clase in ["Worker", "Archer", "Cavalry", "Infantry"]:
             print(clase, end= " : ")
             for individuo in civilizacion.units:
@@ -27,20 +26,27 @@ def produccion(civilization1, civilization2, turno):
     lista = [civilization1, civilization2]
     print( "\n","PHASE 2: REPORT", "\n", "----------------------------------------")
     
-    if turno % 4 == 0:
-        for civilizacion in lista: 
-            civilizacion.train_unit("Archer")
-    elif turno % 4 == 1:
-        for civilizacion in lista: 
-            civilizacion.train_unit("Cavalry")
-    elif turno % 4 == 2:
-        for civilizacion in lista: 
-            civilizacion.train_unit("Infantry")
-    elif turno % 4 == 3:
-        for civilizacion in lista: 
-            civilizacion.train_unit("Worker")
-        
+    for civilizacion in lista:
+        if civilizacion.resources >= 60:
+            print( "\n",f"{civilizacion.name} creates ", end=" ")
+            if turno % 4 == 0:
+                print (civilizacion.train_unit("Archer"))
+            elif turno % 4 == 1:
+                print(civilizacion.train_unit("Cavalry"))
+            elif turno % 4 == 2:
+                print(civilizacion.train_unit("Infantry"))
+        elif civilizacion.resources >= 30: 
+            if turno % 4 == 3:
+                print(civilizacion.train_unit("Worker"))
+            
+        else:
+            print(f"{civilizacion.name} cannot create any unit right now.")    
     
+    
+    
+    
+    
+
  # def production(civilization1, civilization2):
     
 
@@ -120,9 +126,8 @@ if __name__ == "__main__":
     print (f"[TODO: Create {infantry} infantry for {civ2_name}]")
     
     #empieza la batalla turno 1 recursos
-    #empieza la batalla turno 1 recursos
-        turno = 0
-        for turno in range (turns):
-            print("\n", "TURNO_",turno , "\n", "--------------------------------------------------" )
-            recoleccion(civ1, civ2)
-            produccion(civ1, civ2, turno)
+    turno = 1
+    for turno in range (turns):
+        print("\n", "TURNO_",turno , "\n", "--------------------------------------------------" )
+        recoleccion(civ1, civ2)
+        produccion(civ1, civ2, turno)
