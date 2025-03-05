@@ -10,8 +10,8 @@ from unit import *
 def recoleccion(civilization1, civilization2):
     lista = [civilization1, civilization2]
     for civilizacion in lista:
-        civilizacion.collect_resources
-        print({civilization.name}, " Resources: ", {civilization.resources})
+        civilizacion.collect_resources()
+        print(f'{civilization.name} Resources: {civilization.resources}')
         for clase in ["Worker", "Archer", "Cavalry", "Infantry"]:
             print(clase, end= " : ")
             for individuo in civilizacion.units:
