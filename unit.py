@@ -52,11 +52,11 @@ class Unit(ABC):
         -------
         None.
         """
-      self._name = name
-      self._strength = strength
-      self._defense = defense
-      self._hp = hp
-      self._total_hp = total_hp
+        self._name = name
+        self._strength = strength
+        self._defense = defense
+        self._hp = hp
+        self._total_hp = total_hp
   
     def __str__(self):
         """Definimos la cadena que se muestra por pantalla cuando se llama a print con el objeto como argumento.
@@ -120,7 +120,7 @@ class Unit(ABC):
     Con las etiquetas @property y @setter permitimos el acceso a los atributos de cada clase.
     """
 
-   @property
+    @property
     def name(self): #definimos como "leer" el nombre
         return self._name
     @name.setter
@@ -213,7 +213,7 @@ class Archer(Unit):
             return n
          else:
              """si el oponente no tiene vida no podrá ser atacado"""
-            return 'Oponente no disponible'
+             return 'Oponente no disponible'
     
     def effectiveness(self, opponent:'Unit') -> int:
         """ definos la efectividad del ataque sobre cada oponente """
