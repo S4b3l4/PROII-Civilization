@@ -11,6 +11,7 @@ def recoleccion(civilization1, civilization2):
     lista = [civilization1, civilization2]
     print( "\n","PHASE 1: REPORT", "\n", "----------------------------------------")
     for civilizacion in lista:
+        
         civilizacion.collect_resources()
         print("\n", f'{civilizacion.name} Resources: {civilizacion.resources}')
         for clase in ["Worker", "Archer", "Cavalry", "Infantry"]:
@@ -26,6 +27,7 @@ def produccion(civilization1, civilization2, turno):
     lista = [civilization1, civilization2]
     print( "\n","PHASE 2: REPORT", "\n", "----------------------------------------")
     for civilizacion in lista:
+        
         if civilizacion.resources >= 30:
             print( "\n",f"{civilizacion.name} creates ", end=" ")
             if turno % 4 == 0:
@@ -40,13 +42,17 @@ def produccion(civilization1, civilization2, turno):
         else:
             print(f"{civilizacion.name} cannot create any unit right now.")    
     
-    
-    
-    
-    
 
- # def production(civilization1, civilization2):
+def batalla(civilization1, civilization2):
+    print( "\n","PHASE 3: REPORT", "\n", "----------------------------------------")
+    if civ_atacante.all_debilitated == True:
+        return(f"{civ_atacante} está fuera de combate, el ganador es {civ_oponente} ")
+    elif civ_oponente.all_debilitated == True:
+        return(f"{civ_oponente} está fuera de combate, el ganador es {civ_atacante} ")
     
+       
+        
+
 
 if __name__ == "__main__":
 
