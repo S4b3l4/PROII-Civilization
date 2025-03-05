@@ -7,10 +7,12 @@ import pandas
 from civilization import civilization
 from unit import *
 
+
 def recoleccion(civilization1, civilization2):
     lista = [civilization1, civilization2]
     for civilizacion in lista:
         civilizacion.collect_resources()
+        print( "\n","PHASE 1: REPORT", "\n", "----------------------------------------")
         print(f'{civilization.name} Resources: {civilization.resources}')
         for clase in ["Worker", "Archer", "Cavalry", "Infantry"]:
             print(clase, end= " : ")
@@ -19,6 +21,26 @@ def recoleccion(civilization1, civilization2):
                     if individuo._unit_type == clase : 
                         print(f"{individuo.name} ({individuo.hp}/{individuo.total_hp})", end=", ")
             print()
+
+
+def produccion(civilization1, civilization2, turno):
+    lista = [civilization1, civilization2]
+    print( "\n","PHASE 2: REPORT", "\n", "----------------------------------------")
+    
+    if turno % 4 == 0:
+        for civilizacion in lista: 
+            civilizacion.train_unit("Archer")
+    elif turno % 4 == 1:
+        for civilizacion in lista: 
+            civilizacion.train_unit("Cavalry")
+    elif turno % 4 == 2:
+        for civilizacion in lista: 
+            civilizacion.train_unit("Infantry")
+    elif turno % 4 == 3:
+        for civilizacion in lista: 
+            civilizacion.train_unit("Worker")
+        
+    
  # def production(civilization1, civilization2):
     
 
@@ -98,5 +120,9 @@ if __name__ == "__main__":
     print (f"[TODO: Create {infantry} infantry for {civ2_name}]")
     
     #empieza la batalla turno 1 recursos
-
-    recoleccion(civ1, civ2)
+    #empieza la batalla turno 1 recursos
+        turno = 0
+        for turno in range (turns):
+            print("\n", "TURNO_",turno , "\n", "--------------------------------------------------" )
+            recoleccion(civ1, civ2)
+            produccion(civ1, civ2, turno)
