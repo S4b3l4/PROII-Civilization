@@ -8,6 +8,19 @@ from civilization import *
 from unit import *
 import sys
 
+#fase de recolección apartado a
+def recolecta_civ (self) -> int
+    for individuo in self._units:
+        if individuo == "Worker" and hp > 0:
+            individuo.collect
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
 
     # Leer el archivo de configuración desde la línea de comandos o usar el predeterminado
