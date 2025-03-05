@@ -1,18 +1,11 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Feb 25 21:13:07 2025
-
-@author: usuario
-"""
 """
 Autoría: Sabela Fiaño García (sabela.fgarcia@udc.es) y Sara Gende Longueira (sara.gende@udc.es)
 """
-from abc import ABC
-from unit import *
+from unit import Archer, Cavalry, Infantry, Worker
 
 class civilization():
-    """Definimos las características básicas de la clase abstracta civilization.
-    Descripción en varias líneas
+    """Definimos las características básicas de la clase civilization.
+
     Attributes
     ----------
     name : str
@@ -26,17 +19,21 @@ class civilization():
     Methods
     -------
     train_unit(self, new_unit_type:str):
-    Una línea de resumen.
+    Función para crear las unidades dependiendo de los recursos disponibles.
+    def collect_resources(self):
+    Función para recolectar recursos cada vez que se invoque.
+    def all_debilitated(self):
+    Función que indica si una civilización tiene todas sus unidades sin vida o si aún queda alguna.
     """
     
     def __init__(self, name:str, resources:int):
-        """Asigna atributos al objeto.
+        """Asigna atributos al objeto civilization
         Parameters
         ----------
-        attr1 : tipo
-        Descripción.
-        attr2 : tipo
-        Descripción.
+        name : str
+        Indica el nombre de la civilización.
+        resources : int
+        Indica los recursos que tiene la civilización.
         Returns
         -------
         None.
@@ -86,20 +83,26 @@ class civilization():
         else:
             raise ValueError('Debe ser un diccionario.')
 
-    def train_unit(self, new_unit_type:str)-> 'Unit':
-        """Una sola línea de resumen.
+    def train_unit(self, new_unit_type:str):
+        
+        """Función para crear las unidades dependiendo de los recursos disponibles.
+
         Parameters
         ----------
-        param1 : tipo
-        Descripción.
+        new_unit_type : str
+        La unidad que se quiere crear. Para cada una se comprobará que haya los recursos suficientes.
         Returns
         --------
-        str
-        Resultado de...
+        dict
+        En el diccionario unit_count contará cuántas unidades se crean de cada una.
+        int
+        Cada vez que se crea una unidad se resta al total de recursos.
+        list
+        Devuelve la lista de las unidades que se crearon.
         """
         if new_unit_type == "Worker" and self._resources >= 30:
             self._unit_count ["Worker"]+= 1
-            name = f"Worker_{self._unit_count["Worker"]}"
+            name = f'Worker_{self._unit_count["Worker"]}'
             new_unit = Worker(name, 1, 0, 5, 5)
             self._resources -= 30
             self._units.append(new_unit)
@@ -107,21 +110,21 @@ class civilization():
         elif self.resources >= 60:
             if new_unit_type == "Archer":
                 self._unit_count ["Archer"]+= 1
-                name = f"Archer_{self._unit_count["Archer"]}"
+                name = f'Archer_{self._unit_count["Archer"]}'
                 new_unit = Archer(name, 7, 2, 15, 15, 3)
                 self._resources -= 60
                 self._units.append(new_unit)
                
             elif new_unit_type == "Cavalry":
                 self._unit_count ["Cavalry"]+= 1
-                name = f"Cavalry_{self._unit_count["Cavalry"]}"
+                name = f'Cavalry_{self._unit_count["Cavalry"]}'
                 new_unit = Cavalry(name, 5, 2, 25, 25, 5) 
                 self._resources -= 60
                 self._units.append(new_unit)
                
             elif new_unit_type == "Infantry":
                 self._unit_count ["Infantry"]+= 1
-                name = f"Infantry_{self._unit_count["Infantry"]}"
+                name = f'Infantry_{self._unit_count["Infantry"]}'
                 new_unit = Infantry(name, 3, 2, 25, 25, 3) 
                 self._resources -= 60
                 self._units.append(new_unit)
@@ -130,16 +133,14 @@ class civilization():
         return new_unit
         
     def collect_resources(self)-> None:
-        """ Permite que la civilización obtenga recursos cuando se llama a la función collect_resources """
-        """Una sola línea de resumen.
+        """ Permite que la civilización obtenga recursos cuando se llama a la función collect_resources.
         Parameters
         ----------
-        param1 : tipo
-        Descripción.
+        No tiene parámetros propios, solo hace referencia a la clase.
         Returns
         --------
         str
-        Resultado de...
+        Devuelve la cantidad de recursos que recolecta el worker al llamar a la función collect().
         """
         for unidad in self._units:
             if unidad._unit_type == "Worker":
@@ -147,16 +148,14 @@ class civilization():
         return self._resources
     
     def all_debilitated(self)-> bool:
-        """ indica la civilización está fuera de combate (True) o todavía en batalla (False) """
-        """Una sola línea de resumen.
+        """ indica si la civilización está fuera de combate (True) o todavía en batalla (False)
         Parameters
         ----------
-        param1 : tipo
-        Descripción.
+        No tiene parámetros propios, solo hace referencia a la clase.
         Returns
         --------
-        str
-        Resultado de...
+        bool
+        Devuelve True si todas las unidades están sin vida, en caso contrario devuelve False.
         """
         live = 0
         for units in self._units:
