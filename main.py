@@ -7,14 +7,69 @@ import pandas
 from civilization import civilization
 from unit import Archer, Infantry, Cavalry, Worker
 
+def estadisticas(civilization1, civilization2):
+    
+    """Esta función calcula el daño medio de cada unidad, de cada civilizacion y de cada unidad sobre cada civilizacion.
+    Parameters
+    ----------
+    civilization1 : instancia
+    Llama a la clase civilizacion con los atributos de la civilizacion 1
+    civilization2 : instancia
+    Llama a la clase civilizacion con los atributos de la civilizacion 2
+    Returns
+    -------
+    DataFrame
+    Devuelve un DataFrame con los datos del daño medio.
+    """
+    
+    #Creamos dos listas, una con la información de las civilizaciones y otra con la de las unidades.
+    units_info = []
+    for _ in range(100):
+        units_info.append([random.choice(['Archer', 'Cavalry', 'Infantry', 'Worker']),
+                               random.choice(['civ1', 'civ2']),
+                               random.randint(1,5),
+                               random.choice(['civ1', 'civ2'])])
+
+    #Creamos el dataframe
+    data = pandas.DataFrame(units_info, columns=['unit_type', 'civilization', 'damage', 'target'])
+
+    #Agrupamos por civilizacion y calculamos el daño medio por cada una
+    group_col = "civilization"
+    target_col = "damage"
+    data_damage = data.groupby(group_col).agg({target_col :["mean"]})
+    #Imprimimos los resultados
+    print ('\n', "####################################")
+    print ("   damage grouped by civilization      ")
+    print ("##################################\n")
+    print (data_damage)
+
+    #Agrupamos por unidad y calculamos el daño medio de cada uña
+    group_col = "unit_type"
+    target_col = "damage"
+    data_damage = data.groupby(group_col).agg({target_col :["mean"]})
+    print ('\n', "####################################")
+    print ("   damage grouped by unit_type      ")
+    print ("##################################\n")
+    print (data_damage)
+
+    #We can group data by multiple columns, e.g., by job and sex
+    group_col = ["unit_type","target"]
+    target_col = "damage"
+    data_damage = data.groupby(group_col).agg({target_col :["mean"]})
+    print ('\n', "####################################")
+    print (" damage grouped by (unit_type, target)  ")
+    print ("##################################\n")
+    print (data_damage)
+    
+    
 def recoleccion(civilization1, civilization2):
     """Esta función llama a la funcion collect_resources e imprime las unidades que se crean con su hp.
     Parameters
     ----------
     civilization1 : instancia
-    Llama a la clase civilización con sus atributos
+    Llama a la clase civilizacion con los atributos de la civilizacion 1
     civilization2 : instancia
-    Llama a la clase civilización con sus atributos
+    Llama a la clase civilizacion con los atributos de la civilizacion 2
     Returns
     -------
     string
@@ -62,7 +117,7 @@ def produccion(civilization1, civilization2, turno):
                 print(civilizacion.train_unit("Cavalry"))
             elif turno % 4 == 2:
                 print(civilizacion.train_unit("Infantry"))
-            if turno % 4 == 3:
+            elif turno % 4 == 3:
                 print(civilizacion.train_unit("Worker"))
             
         else:
@@ -210,7 +265,11 @@ def batalla(civilizacion1, civilizacion2):
     
                 else:
                     print(f"No se seleccionó objetivo para el atacante {worker2.name} de la civilización {civilizacion2.name}. No se realizará ataque.")
-        
+    
+    #calculamos las estadísticas llamando a la función
+    
+    estadisticas(civilizacion1, civilizacion2)
+    
     #Comprobar si hay alguna civilización que se queda sin unidades con vida.
     if civilizacion1.all_debilitated():
         return(f"{civilizacion1.name} está fuera de combate, el ganador es {civilizacion2.name} ")
