@@ -266,10 +266,6 @@ def batalla(civilizacion1, civilizacion2):
                 else:
                     print(f"No se seleccionó objetivo para el atacante {worker2.name} de la civilización {civilizacion2.name}. No se realizará ataque.")
     
-    #calculamos las estadísticas llamando a la función
-    
-    estadisticas(civilizacion1, civilizacion2)
-    
     #Comprobar si hay alguna civilización que se queda sin unidades con vida.
     if civilizacion1.all_debilitated():
         return(f"{civilizacion1.name} está fuera de combate, el ganador es {civilizacion2.name} ")
@@ -359,3 +355,5 @@ if __name__ == "__main__":
         recoleccion(civ1, civ2)
         produccion(civ1, civ2, turno)
         batalla(civ1, civ2)
+    #calculamos las estadísticas llamando a la función
+    estadisticas(civilizacion1, civilizacion2)
