@@ -77,22 +77,22 @@ def selec_objetivo(atacante, civ_oponente):
             n_und_vivas += 1
             if oponente.unit_type != "Worker" :
                 efecto = atacante.effectiveness(oponente)
-                if efecto == 1 :
-                    return(oponente)
-                elif efecto == 0 :
-                    return(oponente)
-                elif efecto == -1 :
-                   return(oponente)
+                if efecto == 1 or efecto == 0 or efecto == -1:
+                    return oponente
             else:
                 n_work_vivos += 1
                 
     if n_und_vivas == n_work_vivos:            
         for oponente in civ_oponente.units:      
             if oponente.hp > 0 and oponente.unit_type == "Worker":
-                return (oponente)
+                return oponente
     return None
                 
-               
+def vivas_no_workers(civilizacion):
+    for unidad in civilizacion.units:
+        if unidad.hp > 0 and unidad.unit_type != 'Worker':
+            return True  
+    return False              
 
 def batalla(civilizacion1, civilizacion2): 
     
@@ -101,7 +101,7 @@ def batalla(civilizacion1, civilizacion2):
         
     for pos_atack in range(n_medio_ind):
         #Ataque civ1
-        if  civilizacion1.units[pos_atack].unit_type != "Worker":
+        if  civilizacion1.units[pos_atack].unit_type != "Worker" and civilizacion1.units[pos_atack].hp > 0:
             individuo1 = civilizacion1.units[pos_atack]
             oponente_civ2 = selec_objetivo(individuo1, civilizacion2)
             
@@ -113,7 +113,7 @@ def batalla(civilizacion1, civilizacion2):
                 print(f"No se seleccionó objetivo para el atacante {individuo1.name} de la civilización {civilizacion1.name}. No se realizará ataque.")
         
         #Ataque civ2
-        if  civilizacion2.units[pos_atack].unit_type != "Worker":            
+        if  civilizacion2.units[pos_atack].unit_type != "Worker" and civilizacion1.units[pos_atack].hp > 0:            
             individuo2 = civilizacion2.units[pos_atack]
             oponente_civ1 = selec_objetivo(individuo2, civilizacion1)
             
@@ -125,7 +125,7 @@ def batalla(civilizacion1, civilizacion2):
                 print(f"No se seleccionó objetivo para el atacante {individuo2.name} de la civilización {civilizacion2.name}. No se realizará ataque.")
                 
     #Atque Worker
-    if not civilizacion1.all_debilitated() and not civilizacion2.all_debilitated():
+    if not vivas_no_workers(civilizacion1) and not vivas_no_workers(civilizacion2):
         for worker1 in civilizacion1.units:
             if worker1.unit_type == 'Worker' and worker1.hp > 0:
                 obj_civ2 = selec_objetivo(worker1, civilizacion2)
@@ -137,7 +137,7 @@ def batalla(civilizacion1, civilizacion2):
                 else:
                     print(f"No se seleccionó objetivo para el atacante {worker1.name} de la civilización {civilizacion1.name}. No se realizará ataque.")
                 
-    if not civilizacion2.all_debilitated() and not civilizacion1.all_debilitated():
+    elif not vivas_no_workers(civilizacion1) and not vivas_no_workers(civilizacion2):
         for worker2 in civilizacion2.units:
             if worker2.unit_type == 'Worker' and worker2.hp > 0:
                 obj_civ1 = selec_objetivo(worker2, civilizacion1)
