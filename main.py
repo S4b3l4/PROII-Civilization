@@ -356,4 +356,4 @@ if __name__ == "__main__":
         produccion(civ1, civ2, turno)
         batalla(civ1, civ2)
     #calculamos las estadísticas llamando a la función
-    estadisticas(civilizacion1, civilizacion2)
+    estadisticas(civ1, civ2)
