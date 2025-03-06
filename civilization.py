@@ -5,7 +5,7 @@ from unit import Archer, Cavalry, Infantry, Worker
 
 class civilization():
     """Definimos las características básicas de la clase civilization.
-
+    
     Attributes
     ----------
     name : str
@@ -16,6 +16,7 @@ class civilization():
     Lista con todas la unidades de la civilización.
     units_count : dict
     Diccionario que almacena el numero de unidades de cada clase
+    
     Methods
     -------
     train_unit(self, new_unit_type:str):
@@ -28,12 +29,14 @@ class civilization():
     
     def __init__(self, name:str, resources:int):
         """Asigna atributos al objeto civilization
+        
         Parameters
         ----------
         name : str
         Indica el nombre de la civilización.
         resources : int
         Indica los recursos que tiene la civilización.
+        
         Returns
         -------
         None.
@@ -84,21 +87,18 @@ class civilization():
             raise ValueError('Debe ser un diccionario.')
 
     def train_unit(self, new_unit_type:str):
-        
         """Función para crear las unidades dependiendo de los recursos disponibles.
-
+        
         Parameters
         ----------
         new_unit_type : str
         La unidad que se quiere crear. Para cada una se comprobará que haya los recursos suficientes.
+        
         Returns
         --------
-        dict
-        En el diccionario unit_count contará cuántas unidades se crean de cada una.
-        int
-        Cada vez que se crea una unidad se resta al total de recursos.
-        list
-        Devuelve la lista de las unidades que se crearon.
+        None
+        Unit
+        Devuelve la nueva unidad creada tras haberla añadida a la lista de unidades.
         """
         if new_unit_type == "Worker" and self._resources >= 30:
             self._unit_count ["Worker"]+= 1
@@ -134,9 +134,11 @@ class civilization():
         
     def collect_resources(self)-> None:
         """ Permite que la civilización obtenga recursos cuando se llama a la función collect_resources.
+        
         Parameters
         ----------
         No tiene parámetros propios, solo hace referencia a la clase.
+        
         Returns
         --------
         str
@@ -149,9 +151,11 @@ class civilization():
     
     def all_debilitated(self)-> bool:
         """ indica si la civilización está fuera de combate (True) o todavía en batalla (False)
+        
         Parameters
         ----------
         No tiene parámetros propios, solo hace referencia a la clase.
+        
         Returns
         --------
         bool
