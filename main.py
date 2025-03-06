@@ -5,7 +5,7 @@ import sys
 import random
 import pandas
 from civilization import civilization
-from unit import Archer, Infantry, Cavalry, Worker
+from unit import Archer, Cavalry, Infantry, Worker
 
 def estadisticas(civilization1, civilization2):
     
