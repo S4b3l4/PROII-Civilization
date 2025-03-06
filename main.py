@@ -41,7 +41,7 @@ def produccion(civilization1, civilization2, turno):
     ----------
     civilization1 : instancia
     Llama a la clase civilización con sus atributos
-    civilization2
+    civilization2 : instancia
     Llama a la clase civilización con sus atributos
     turno: int
     A través de un bucle recorre los valores de 1 hasta el valor de turns.
@@ -55,7 +55,7 @@ def produccion(civilization1, civilization2, turno):
     for civilizacion in lista:
         
         if civilizacion.resources >= 30:
-            print( "\n",f"{civilizacion.name} creates ", end="")
+            print(f"{civilizacion.name} creates ", end="")
             if turno % 4 == 0:
                 print(civilizacion.train_unit("Archer"))
             elif turno % 4 == 1:
@@ -69,6 +69,18 @@ def produccion(civilization1, civilization2, turno):
             print(f"{civilizacion.name} cannot create any unit right now.")    
             
 def selec_objetivo(atacante, civ_oponente):
+    """Esta función selecciona el oponente de cada civilización.
+    Parameters
+    ----------
+    atacante : instancia
+    Representa la unidad de la civilizacion que va atacar.
+    civ_oponente : instancia
+    Representa la civilizacion a la que se va atacar.
+    Returns
+    -------
+    oponente : instancia o None
+    Devuelve el oponente que selecciona el atacante o nada si no encuentra oponente.
+    """
     n_und_vivas = 0     
     n_work_vivos = 0
     
@@ -89,12 +101,35 @@ def selec_objetivo(atacante, civ_oponente):
     return None
                 
 def vivas_no_workers(civilizacion):
+    """Esta función comprueba si quedan unidades vivas que no sean worker.
+    Parameters
+    ----------
+    civilizacion : instancia
+    Contiene los atributos de la civilizacion.
+    Returns
+    -------
+    bool
+    Devuelve True si quedan unidades vivas diferentes de worker y False en caso contrario.
+    """
     for unidad in civilizacion.units:
         if unidad.hp > 0 and unidad.unit_type != 'Worker':
             return True  
     return False              
 
 def batalla(civilizacion1, civilizacion2): 
+    
+    """Esta función desarrolla la fase de batalla entre las dos civilizaciones.
+    Parameters
+    ----------
+    civilization1 : instancia
+    Llama a la clase civilizacion con los atributos de la civilizacion 1
+    civilization2 : instancia
+    Llama a la clase civilizacion con los atributos de la civilizacion 2
+    Returns
+    -------
+    string
+    Devuelve una cadena de texto que indica el estado de la batalla, las unidades que quedan, quien ataca y si gana alguien.
+    """
     
     print( "\n","PHASE 3: REPORT", "\n", "----------------------------------------")
     n_medio_ind = min(len(civilizacion1.units), len(civilizacion2.units))
@@ -123,7 +158,33 @@ def batalla(civilizacion1, civilizacion2):
                 print(f"{civilizacion2.name} - {individuo2.name} attacks {civilizacion1.name} - {oponente_civ1.name} with damage {daño2} (hp={oponente_civ1.hp}/{oponente_civ1.total_hp}).")
             else:
                 print(f"No se seleccionó objetivo para el atacante {individuo2.name} de la civilización {civilizacion2.name}. No se realizará ataque.")
-                
+     
+    #Ataque de las unidades que aun quedan vivas
+    if len(civilizacion1.units) > len(civilizacion2.units):
+        for i in range(len(civilizacion2.units), len(civilizacion1.units)):
+            atacante = civilizacion1.units[i]
+            obj = None
+            for j in civilizacion2.units:
+                if j.hp > 0:
+                    obj = j
+                    break
+                if obj:
+                    daño = atacante.attack(obj)
+                    print(f"{civilizacion1.name} - {atacante.name} attacks {civilizacion2.name} - {obj.name} with damage {daño} (hp={obj.hp}/{obj.total_hp}).")
+
+    elif len(civilizacion2.units) > len(civilizacion1.units):
+        for i in range(len(civilizacion1.units), len(civilizacion2.units)):
+            atacante = civilizacion2.units[i]
+            obj = None
+            for j in civilizacion1.units:
+                if j.hp > 0:
+                    obj = j
+                    break
+                if obj:
+                    daño = atacante.attack(obj)
+                    print(f"{civilizacion2.name} - {atacante.name} attacks {civilizacion1.name} - {obj.name} with damage {daño} (hp={obj.hp}/{obj.total_hp}).")
+
+
     #Atque Worker
     if not vivas_no_workers(civilizacion1) and not vivas_no_workers(civilizacion2):
         for worker1 in civilizacion1.units:
@@ -137,7 +198,7 @@ def batalla(civilizacion1, civilizacion2):
                 else:
                     print(f"No se seleccionó objetivo para el atacante {worker1.name} de la civilización {civilizacion1.name}. No se realizará ataque.")
                 
-    elif not vivas_no_workers(civilizacion1) and not vivas_no_workers(civilizacion2):
+    if not vivas_no_workers(civilizacion1) and not vivas_no_workers(civilizacion2):
         for worker2 in civilizacion2.units:
             if worker2.unit_type == 'Worker' and worker2.hp > 0:
                 obj_civ1 = selec_objetivo(worker2, civilizacion1)
@@ -155,7 +216,8 @@ def batalla(civilizacion1, civilizacion2):
         return(f"{civilizacion1.name} está fuera de combate, el ganador es {civilizacion2.name} ")
     elif civilizacion2.all_debilitated():
         return(f"{civilizacion2.name} está fuera de combate, el ganador es {civilizacion1.name} ")
-    return 'La batalla continúa.'
+    else:
+        return 'La batalla continúa.'
 
 if __name__ == "__main__":
 
