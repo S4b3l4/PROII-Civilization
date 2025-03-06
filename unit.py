@@ -383,7 +383,6 @@ class Cavalry(Unit):
         else:
             raise ValueError('La carga tiene que ser positiva y entera.')
  
-        
 class Infantry(Unit):
     """ definimos las características básicas de la clase Infantry.
     Attributes
@@ -481,7 +480,6 @@ class Infantry(Unit):
             self._fury = value
         else:
             raise ValueError('La furia tiene que ser positiva y entera.')
- 
             
 class Worker(Unit):
     """ definimos las características básicas de la clase Worker.
