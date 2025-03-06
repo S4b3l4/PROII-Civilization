@@ -100,33 +100,61 @@ def batalla(civilizacion1, civilizacion2):
     n_medio_ind = min(len(civilizacion1.units), len(civilizacion2.units))
         
     for pos_atack in range(n_medio_ind):
+        #Ataque civ1
         if  civilizacion1.units[pos_atack].unit_type != "Worker":
             individuo1 = civilizacion1.units[pos_atack]
             oponente_civ2 = selec_objetivo(individuo1, civilizacion2)
             
             if oponente_civ2 and not oponente_civ2.is_debilitated():
-                daño = individuo1.attack(oponente_civ2)
-                oponente_civ2.hp -= daño
-                print(f"{individuo1.name} ataca a {oponente_civ2.name} causando {daño} de daño.")
+                daño1 = individuo1.attack(oponente_civ2)
+                oponente_civ2.hp -= daño1
+                print(f"{civilizacion1.name} - {individuo1.name} attacks {civilizacion2.name} - {oponente_civ2.name} with damage {daño1} (hp={oponente_civ2.hp}/{oponente_civ2.total_hp}).")
             else:
-                print(f"No se pudo seleccionar objetivo para el atacante de {individuo1}. No se realizará ataque.")
-            
+                print(f"No se seleccionó objetivo para el atacante {individuo1.name} de la civilización {civilizacion1.name}. No se realizará ataque.")
+        
+        #Ataque civ2
         if  civilizacion2.units[pos_atack].unit_type != "Worker":            
             individuo2 = civilizacion2.units[pos_atack]
             oponente_civ1 = selec_objetivo(individuo2, civilizacion1)
             
             if oponente_civ1 and not oponente_civ1.is_debilitated():
-                daño = individuo2.attack(oponente_civ1)
-                oponente_civ1.hp -= daño
+                daño2 = individuo2.attack(oponente_civ1)
+                oponente_civ1.hp -= daño2
+                print(f"{civilizacion2.name} - {individuo2.name} attacks {civilizacion1.name} - {oponente_civ1.name} with damage {daño2} (hp={oponente_civ1.hp}/{oponente_civ1.total_hp}).")
             else:
-                print(f"No se pudo seleccionar objetivo para el atacante de {individuo2}. No se realizará ataque.")
-
-    #falta atacar con worker y atacar tropas auxiliares 
+                print(f"No se seleccionó objetivo para el atacante {individuo2.name} de la civilización {civilizacion2.name}. No se realizará ataque.")
+                
+    #Atque Worker
+    if not civilizacion1.all_debilitated() and not civilizacion2.all_debilitated():
+        for worker1 in civilizacion1.units:
+            if worker1.unit_type == 'Worker' and worker1.hp > 0:
+                obj_civ2 = selec_objetivo(worker1, civilizacion2)
+            
+                if obj_civ2 and not obj_civ2.is_debilitated():
+                    daño_worker1 = worker1.attack(obj_civ2)
+                    obj_civ2.hp -= daño_worker1
+                    print(f"{civilizacion1.name} - {worker1.name} attacks {civilizacion2.name} - {obj_civ2.name} with damage {daño_worker1} (hp={obj_civ2.hp}/{obj_civ2.total_hp}).")
+                else:
+                    print(f"No se seleccionó objetivo para el atacante {worker1.name} de la civilización {civilizacion1.name}. No se realizará ataque.")
+                
+    if not civilizacion2.all_debilitated() and not civilizacion1.all_debilitated():
+        for worker2 in civilizacion2.units:
+            if worker2.unit_type == 'Worker' and worker2.hp > 0:
+                obj_civ1 = selec_objetivo(worker2, civilizacion1)
+                
+                if obj_civ1 and not obj_civ1.is_debilitated():
+                    daño_worker2 = worker2.attack(obj_civ1)
+                    obj_civ1.hp -= daño_worker2
+                    print(f"{civilizacion2.name} - {worker2.name} attacks {civilizacion1.name} - {obj_civ1.name} with damage {daño_worker2} (hp={obj_civ1.hp}/{obj_civ1.total_hp}).")
     
-    if civilizacion1.all_debilitated() == True:
-        return(f"{civilizacion1} está fuera de combate, el ganador es {civilizacion2} ")
-    elif civilizacion2.all_debilitated() == True:
-        return(f"{civilizacion2} está fuera de combate, el ganador es {civilizacion1} ")
+                else:
+                    print(f"No se seleccionó objetivo para el atacante {worker2.name} de la civilización {civilizacion2.name}. No se realizará ataque.")
+        
+    #Comprobar si hay alguna civilización que se queda sin unidades con vida.
+    if civilizacion1.all_debilitated():
+        return(f"{civilizacion1.name} está fuera de combate, el ganador es {civilizacion2.name} ")
+    elif civilizacion2.all_debilitated():
+        return(f"{civilizacion2.name} está fuera de combate, el ganador es {civilizacion1.name} ")
     return 'La batalla continúa.'
 
 if __name__ == "__main__":
