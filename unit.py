@@ -5,7 +5,6 @@ from abc import ABC, abstractmethod
 import math
 
 class Unit(ABC):
-    
     """ definimos las características básicas de la clase abstracta Unit que serán comunes a todas las subunidades.
     Attributes
     ----------
@@ -29,7 +28,6 @@ class Unit(ABC):
     """
     
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int):
-        
         """Asigna atributos al objeto.
         Parameters
         ----------
@@ -47,7 +45,6 @@ class Unit(ABC):
         -------
         None.
         """
-        
         self._name = name
         self._strength = strength
         self._defense = defense
@@ -55,7 +52,6 @@ class Unit(ABC):
         self._total_hp = total_hp
   
     def __str__(self):
-        
         """Definimos la cadena que se muestra por pantalla cuando se llama a print con el objeto como argumento.
         Parameters
         ----------
@@ -66,12 +62,10 @@ class Unit(ABC):
         str
         Resultado {name} ({unit_type}) Stats: ATT: {strength}, DEF: {defense}, HP: {hp/total_hp}
         """
-        
         return f'nombre: {self._name}, unit:{self._unit_type}, ATT: {self._strength}, DEF: {self._defense}, HP: {self._hp}/{self._total_hp}'
       
     @abstractmethod
     def effectiveness(self, opponent:'Unit')-> int:
-        
         """Define la relación entre las subclases en base a su interacción en batalla.
         Parameters
         ----------
@@ -84,11 +78,9 @@ class Unit(ABC):
         int
         Devuelve -1 si es débil ante el oponente ,0 si es neutro contra el oponente o 1 si es efectivo ante el oponente.
         """
-        
         pass 
     
     def attack(self, opponent:'Unit')-> int:
-        
         """Daño básico de 1 unidad, se modifica dependiendo de la clase.
         Parameters
         ----------
@@ -101,11 +93,9 @@ class Unit(ABC):
         int
         Devuelve las unidades de ataque.
         """
-        
         return 1
     
     def is_debilitated(self)-> bool:
-        
         """Indica si la unidad está fuera de combate, con unidades de hp igual a 0 (True) o todavía en batalla (False).
         Parameters
         ----------
@@ -117,12 +107,14 @@ class Unit(ABC):
         True si está debilitado, False si sigue en pie para la batalla.
         """
         return self._hp <= 0
-        
+
+    
     """
     Estas tres funciones son comunes a todos los personajes.
     Con las etiquetas @property y @setter permitimos el acceso a los atributos de cada clase.
     """
 
+    
     @property
     def name(self): #definimos como "leer" el nombre
         return self._name
@@ -185,7 +177,6 @@ class Unit(ABC):
 
 
 class Archer(Unit):
-    
     """ definimos las características básicas de la clase Archer.
     Attributes
     ----------
@@ -201,9 +192,7 @@ class Archer(Unit):
     """
     
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int, arrows:int):
-        
         """ Asigna atributos al objeto Archer
-        
         Parameters
         ----------
         self : Unit
@@ -224,14 +213,12 @@ class Archer(Unit):
         -------
         None
         """
-        
         self._arrows = arrows
         self._unit_type = 'Archer'
         'definimos el nº de flechas a la hora de la batalla para más flexibilidad del juego'
         super().__init__(name, strength, defense, hp, total_hp) #super llama a la superclase.
         
     def attack(self, opponent:'Unit') -> int:
-        
          """Daño que se realiza al oponente, se modifica dependiendo de la clase.
          Parameters
          ----------
@@ -244,7 +231,6 @@ class Archer(Unit):
          int
          Devuelve las unidades de ataque.
          """
-         
          if opponent._hp > 0:
             factor = 1
             if opponent._unit_type == 'Cavalry':
@@ -270,7 +256,6 @@ class Archer(Unit):
              return 'Oponente no disponible'
     
     def effectiveness(self, opponent:'Unit') -> int:
-        
         """Indica la efectividad del ataque dependiendo de la unidad.
         Parameters
         ----------
@@ -281,7 +266,6 @@ class Archer(Unit):
         int
         1 si el oponente es Cavalry, -1 si es Infantry y 0 en el resto de casos.
         """
-        
         effect = 0
         if opponent._unit_type == 'Cavalry':
             effect = 1
@@ -301,7 +285,6 @@ class Archer(Unit):
             raise ValueError('El número de flechas debe ser un número entero.')
  
 class Cavalry(Unit):
-    
     """ definimos las características básicas de la clase Cavalry.
     Attributes
     ----------
@@ -317,9 +300,7 @@ class Cavalry(Unit):
     """
     
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int, charge:int):
-        
         """ Asigna atributos al objeto Cavalry 
-        
         Parameters
         ----------
         self : Unit
@@ -340,13 +321,11 @@ class Cavalry(Unit):
         -------
         None
         """
-        
         self._charge = charge
         self._unit_type = 'Cavalry'
         super().__init__(name, strength, defense, hp, total_hp) 
         
     def attack(self, opponent:'Unit') -> int:
-        
         """Daño que se realiza al oponente, se modifica dependiendo de la clase.
         Parameters
         ----------
@@ -359,7 +338,6 @@ class Cavalry(Unit):
         int
         Devuelve las unidades de ataque.
         """
-        
         if opponent._hp > 0:
             factor = 1
             if opponent._unit_type == 'Infantry':
@@ -377,7 +355,6 @@ class Cavalry(Unit):
             return 'Oponente no disponible'
         
     def effectiveness(self, opponent:'Unit') -> int:
-        
         """Indica la efectividad del ataque dependiendo de la unidad.
         Parameters
         ----------
@@ -388,7 +365,6 @@ class Cavalry(Unit):
         int
         1 si el oponente es Infantry, -1 si es Archer y 0 en el resto de casos.
         """
-        
         effect = 0
         if opponent._unit_type == 'Archer':
             effect = -1
@@ -409,7 +385,6 @@ class Cavalry(Unit):
  
         
 class Infantry(Unit):
-    
     """ definimos las características básicas de la clase Infantry.
     Attributes
     ----------
@@ -425,9 +400,7 @@ class Infantry(Unit):
     """
     
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int, fury:int):
-        
         """ Asigna atributos al objeto Infantry 
-        
         Parameters
         ----------
         self : Unit
@@ -448,13 +421,11 @@ class Infantry(Unit):
         -------
         None
         """
-        
         self._fury = fury
         self._unit_type = 'Infantry'
         super().__init__(name, strength, defense, hp, total_hp) 
         
     def attack(self, opponent:'Unit') -> int:
-        
         """Daño que se realiza al oponente, se modifica dependiendo de la clase.
         Parameters
         ----------
@@ -467,7 +438,6 @@ class Infantry(Unit):
         int
         Devuelve las unidades de ataque.
         """
-        
         if opponent._hp > 0:
             factor = 1
             if opponent._unit_type == 'Archer':
@@ -484,7 +454,6 @@ class Infantry(Unit):
             return 'Oponente no disponible'
         
     def effectiveness(self, opponent:'Unit') -> int:
-        
         """Indica la efectividad del ataque dependiendo de la unidad.        
         Parameters
         ----------
@@ -495,7 +464,6 @@ class Infantry(Unit):
         int
         1 si el oponente es Archer, -1 si es Cavalry y 0 en el resto de casos.
         """
-        
         effect = 0
         if opponent._unit_type == 'Archer':
             effect = 1
@@ -516,7 +484,6 @@ class Infantry(Unit):
  
             
 class Worker(Unit):
-    
     """ definimos las características básicas de la clase Worker.
     Attributes
     ----------
@@ -532,9 +499,7 @@ class Worker(Unit):
     """
     
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int): 
-        
         """ Asigna atributos al objeto Worker 
-        
         Parameters
         ----------
         self : Unit
@@ -555,8 +520,8 @@ class Worker(Unit):
         """
         self._unit_type = 'Worker'
         super().__init__(name, strength, defense, hp, total_hp) 
-    def attack(self, opponent:'Unit') -> int:
         
+    def attack(self, opponent:'Unit') -> int:
         """Daño que se realiza al oponente, siempre es 1.
         Parameters
         ----------
@@ -569,7 +534,6 @@ class Worker(Unit):
         int
         Devuelve las unidades de ataque.
         """
-        
         if opponent._hp > 0:
             n = 1
             if opponent._hp - n <= 0:
@@ -582,9 +546,7 @@ class Worker(Unit):
         return n
         
     def collect(self)-> int:
-        
         """permite a los Worker recolectar 10 de recursos
-        
         Parameters
         ----------
         self : Unit
@@ -594,11 +556,9 @@ class Worker(Unit):
         int
         Devuelve las unidades que recolecta que son 10.
         """
-        
         return 10
         
     def effectiveness(self, opponent:'Unit') -> int:
-        
         """Indica la efectividad del ataque dependiendo de la unidad.
         Parameters
         ----------
@@ -609,5 +569,4 @@ class Worker(Unit):
         int
         Siempre devuelve -1.
         """
-        
         return -1
