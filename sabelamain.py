@@ -297,11 +297,6 @@ def batalla(civilizacion1, civilizacion2):
                     else:
                         print(f"No se seleccionó objetivo para el atacante {worker2.name} de la civilización {civilizacion2.name}. No se realizará ataque.")
         
-        #calculamos las estadísticas llamando a la función
-        estadisticas(civilizacion1, civilizacion2)
-    
-    
-
 if __name__ == "__main__":
 
     # Leer el archivo de configuración desde la línea de comandos o usar el predeterminado
@@ -383,3 +378,5 @@ if __name__ == "__main__":
         recoleccion(civ1, civ2)
         produccion(civ1, civ2, turno)
         batalla(civ1, civ2)
+    #calculamos las estadísticas llamando a la función
+    estadisticas(civilizacion1, civilizacion2)
