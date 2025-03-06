@@ -5,7 +5,8 @@ from abc import ABC, abstractmethod
 import math
 
 class Unit(ABC):
-    """ definimos las características básicas de la clase abstracta Unit que serán comunes a todas las subunidades.
+    """ Definimos las características básicas de la clase abstracta Unit que serán comunes a todas las subunidades.
+    
     Attributes
     ----------
     name : str
@@ -18,6 +19,8 @@ class Unit(ABC):
     Puntos de salud varia a lo largo del juego pero nunca aumenta, siempre inferior o igual a total_hp.
     total_hp : int
     Puntos totales de vida, no varia a lo largo de la partida.
+
+    Methods
     -------
     effectiveness(self, opponent:'Unit') :
     Define la relación entre las subclases en base a su interacción en batalla -1 devil, 0 neutro y 1 efectivo.
@@ -29,6 +32,7 @@ class Unit(ABC):
     
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int):
         """Asigna atributos al objeto.
+        
         Parameters
         ----------
         name : str
@@ -41,6 +45,7 @@ class Unit(ABC):
         Puntos de salud varia a lo largo del juego pero nunca aumenta, siempre inferior o igual a total_hp.
         total_hp : int
         Puntos totales de vida, no varia a lo largo de la partida.
+        
         Returns
         -------
         None.
@@ -53,10 +58,12 @@ class Unit(ABC):
   
     def __str__(self):
         """Definimos la cadena que se muestra por pantalla cuando se llama a print con el objeto como argumento.
+        
         Parameters
         ----------
         self : Unit
         Objeto sobre el que queremos saber información.  
+        
         Returns
         --------
         str
@@ -67,12 +74,14 @@ class Unit(ABC):
     @abstractmethod
     def effectiveness(self, opponent:'Unit')-> int:
         """Define la relación entre las subclases en base a su interacción en batalla.
+        
         Parameters
         ----------
         self : Unit
         Objeto que queremos saber si tiene algun efecto sobre el oponente.
         opponent : Unit
         Objeto oponente del cual necesitamos saber su unit_tipe.
+        
         Returns
         -------
         int
@@ -82,12 +91,14 @@ class Unit(ABC):
     
     def attack(self, opponent:'Unit')-> int:
         """Daño básico de 1 unidad, se modifica dependiendo de la clase.
+        
         Parameters
         ----------
         self : Unit
         Objeto que queremos que ataque.
         opponent : Unit
         Objeto oponente del cual necesitamos saber su defensa.
+        
         Returns
         -------
         int
@@ -97,10 +108,12 @@ class Unit(ABC):
     
     def is_debilitated(self)-> bool:
         """Indica si la unidad está fuera de combate, con unidades de hp igual a 0 (True) o todavía en batalla (False).
+        
         Parameters
         ----------
         self : Unit
         Objeto que queremos saber si está debilitado.
+        
         Returns
         -------
         bool
@@ -177,11 +190,14 @@ class Unit(ABC):
 
 
 class Archer(Unit):
-    """ definimos las características básicas de la clase Archer.
+    """ Definimos las características básicas de la clase Archer.
+    
     Attributes
     ----------
     Unit
     Al llamar a la superclase ya contiene todos sus atributos
+    
+    Methods
     -------
     effectiveness(self, opponent:'Unit') :
     Define la relación entre las subclases en base a su interacción en batalla -1 devil, 0 neutro y 1 efectivo.
@@ -193,6 +209,7 @@ class Archer(Unit):
     
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int, arrows:int):
         """ Asigna atributos al objeto Archer
+        
         Parameters
         ----------
         self : Unit
@@ -209,6 +226,7 @@ class Archer(Unit):
         Puntos totales de vida, no varia a lo largo de la partida.
         arrows: int
         Total de flechas que tiene.
+        
         Returns
         -------
         None
@@ -220,12 +238,14 @@ class Archer(Unit):
         
     def attack(self, opponent:'Unit') -> int:
          """Daño que se realiza al oponente, se modifica dependiendo de la clase.
+         
          Parameters
          ----------
          self : Unit
          Objeto que queremos que ataque.
          opponent : Unit
          Objeto oponente del cual necesitamos saber su defensa.
+         
          Returns
          -------
          int
@@ -257,10 +277,12 @@ class Archer(Unit):
     
     def effectiveness(self, opponent:'Unit') -> int:
         """Indica la efectividad del ataque dependiendo de la unidad.
+        
         Parameters
         ----------
         self : Unit
         Objeto que queremos saber si está debilitado.
+        
         Returns
         -------
         int
@@ -286,10 +308,13 @@ class Archer(Unit):
  
 class Cavalry(Unit):
     """ definimos las características básicas de la clase Cavalry.
+    
     Attributes
     ----------
     Unit
     Al llamar a la superclase ya contiene todos sus atributos
+
+    Methods
     -------
     effectiveness(self, opponent:'Unit') :
     Define la relación entre las subclases en base a su interacción en batalla -1 devil, 0 neutro y 1 efectivo.
@@ -301,6 +326,7 @@ class Cavalry(Unit):
     
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int, charge:int):
         """ Asigna atributos al objeto Cavalry 
+        
         Parameters
         ----------
         self : Unit
@@ -317,6 +343,7 @@ class Cavalry(Unit):
         Puntos totales de vida, no varia a lo largo de la partida.
         charge: int
         Total de carga que tiene.
+        
         Returns
         -------
         None
@@ -327,12 +354,14 @@ class Cavalry(Unit):
         
     def attack(self, opponent:'Unit') -> int:
         """Daño que se realiza al oponente, se modifica dependiendo de la clase.
+        
         Parameters
         ----------
         self : Unit
         Objeto que queremos que ataque.
         opponent : Unit
         Objeto oponente del cual necesitamos saber su defensa.
+        
         Returns
         -------
         int
@@ -356,10 +385,12 @@ class Cavalry(Unit):
         
     def effectiveness(self, opponent:'Unit') -> int:
         """Indica la efectividad del ataque dependiendo de la unidad.
+        
         Parameters
         ----------
         self : Unit
         Objeto que queremos saber si está debilitado.
+        
         Returns
         -------
         int
@@ -385,10 +416,13 @@ class Cavalry(Unit):
  
 class Infantry(Unit):
     """ definimos las características básicas de la clase Infantry.
+    
     Attributes
     ----------
     Unit
     Al llamar a la superclase ya contiene todos sus atributos
+
+    Methods
     -------
     effectiveness(self, opponent:'Unit') :
     Define la relación entre las subclases en base a su interacción en batalla -1 devil, 0 neutro y 1 efectivo.
@@ -400,6 +434,7 @@ class Infantry(Unit):
     
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int, fury:int):
         """ Asigna atributos al objeto Infantry 
+        
         Parameters
         ----------
         self : Unit
@@ -416,6 +451,7 @@ class Infantry(Unit):
         Puntos totales de vida, no varia a lo largo de la partida.
         fury: int
         Total de furia que tiene.
+        
         Returns
         -------
         None
@@ -426,12 +462,14 @@ class Infantry(Unit):
         
     def attack(self, opponent:'Unit') -> int:
         """Daño que se realiza al oponente, se modifica dependiendo de la clase.
+        
         Parameters
         ----------
         self : Unit
         Objeto que queremos que ataque.
         opponent : Unit
         Objeto oponente del cual necesitamos saber su defensa.
+        
         Returns
         -------
         int
@@ -453,11 +491,13 @@ class Infantry(Unit):
             return 'Oponente no disponible'
         
     def effectiveness(self, opponent:'Unit') -> int:
-        """Indica la efectividad del ataque dependiendo de la unidad.        
+        """Indica la efectividad del ataque dependiendo de la unidad.   
+        
         Parameters
         ----------
         self : Unit
         Objeto que queremos saber si está debilitado.
+        
         Returns
         -------
         int
@@ -483,10 +523,13 @@ class Infantry(Unit):
             
 class Worker(Unit):
     """ definimos las características básicas de la clase Worker.
+    
     Attributes
     ----------
     Unit
     Al llamar a la superclase ya contiene todos sus atributos
+    
+    Methods
     -------
     effectiveness(self, opponent:'Unit') :
     Define la relación entre las subclases en base a su interacción en batalla -1 devil, 0 neutro y 1 efectivo.
@@ -498,6 +541,7 @@ class Worker(Unit):
     
     def __init__(self, name:str, strength:int, defense:int, hp:int, total_hp:int): 
         """ Asigna atributos al objeto Worker 
+        
         Parameters
         ----------
         self : Unit
@@ -512,6 +556,7 @@ class Worker(Unit):
         Puntos de salud varia a lo largo del juego pero nunca aumenta, siempre inferior o igual a total_hp.
         total_hp : int
         Puntos totales de vida, no varia a lo largo de la partida.
+        
         Returns
         -------
         None
@@ -521,12 +566,14 @@ class Worker(Unit):
         
     def attack(self, opponent:'Unit') -> int:
         """Daño que se realiza al oponente, siempre es 1.
+        
         Parameters
         ----------
         self : Unit
         Objeto que queremos que ataque.
         opponent : Unit
         Objeto oponente del cual necesitamos saber su defensa.
+        
         Returns
         -------
         int
@@ -545,10 +592,12 @@ class Worker(Unit):
         
     def collect(self)-> int:
         """permite a los Worker recolectar 10 de recursos
+        
         Parameters
         ----------
         self : Unit
         Objeto que hace referencia a Worker
+        
         Returns
         -------
         int
@@ -558,10 +607,12 @@ class Worker(Unit):
         
     def effectiveness(self, opponent:'Unit') -> int:
         """Indica la efectividad del ataque dependiendo de la unidad.
+        
         Parameters
         ----------
         self : Unit
         Objeto que queremos saber si está debilitado.
+        
         Returns
         -------
         int
