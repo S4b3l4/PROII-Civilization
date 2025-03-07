@@ -183,6 +183,8 @@ def ha_ganado (civilizacion1, civilizacion2):
     ----------
     civilizacion1 : instancia
     Contiene los atributos de la civilizacion.
+    civilizacion2 : instancia
+    Contiene los atributos de la civilizacion.
    
     Returns
     -------
@@ -361,5 +363,11 @@ if __name__ == "__main__":
         recoleccion(civ1, civ2)
         produccion(civ1, civ2, turno)
         batalla(civ1, civ2)
+        if ha_ganado(civ1, civ2) == True:
+            if civ1.all_debilitated :
+                print(f"La civilización {civ1.name} ha caido. La civilización ganadora es {civ2.name}")
+            if civ2.all_debilitated :
+                print(f"La civilización {civ2.name} ha caido. La civilización ganadora es {civ1.name}")
+        
     #calculamos las estadísticas llamando a la función
     estadisticas(civ1, civ2)
