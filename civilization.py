@@ -1,7 +1,7 @@
 """
 Autoría: Sabela Fiaño García (sabela.fgarcia@udc.es) y Sara Gende Longueira (sara.gende@udc.es)
 """
-from unit import Archer, Cavalry, Infantry, Worker
+from unit import *
 
 class civilization():
     """Definimos las características básicas de la clase civilization.
@@ -78,11 +78,11 @@ class civilization():
         
     @property
     def units_count(self):
-        return self._units
+        return self._unit_count
     @units_count.setter
     def units_count(self, value):
         if isinstance(value, dict):
-            self._units = value
+            self._unit_count = value
         else:
             raise ValueError('Debe ser un diccionario.')
 
@@ -145,7 +145,7 @@ class civilization():
         Devuelve la cantidad de recursos que recolecta el worker al llamar a la función collect().
         """
         for unidad in self._units:
-            if unidad._unit_type == "Worker":
+            if unidad.unit_type == "Worker":
                 self._resources += unidad.collect()
         return self._resources
     
